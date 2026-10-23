@@ -1,0 +1,8 @@
+// Compact layout with the zjstatus Gruvbox bar (alias defined in config.kdl)
+layout {
+    pane
+    // size=2: one line for the top border, one for the bar
+    pane size=2 borderless=true {
+        plugin location="zjstatus"
+    }
+}

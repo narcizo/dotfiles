@@ -1,0 +1,57 @@
+# Inserts a blank line between shell prompts
+add_newline = true
+
+# Gray pill around user and folder so prompts stand out in long output, clock last.
+# Pill color #3c3836 matches the zjstatus bar; username and directory styles carry the same bg.
+# $all keeps duration, status and node after the pill; modules named here are left out of $all.
+format = '[](fg:#3c3836)[ $username$directory](bg:#3c3836)[](fg:#3c3836) $all$time$line_break[╰─](bright-black)$character'
+
+# Replace the '❯' symbol in the prompt with '➜'
+[character] # The name of the module we are configuring is 'character'
+success_symbol = '[➜](bold green)' # The 'success_symbol' segment is being set to '➜' with the color 'bold green'
+error_symbol = '[➜](bold red)'
+
+# Disable the package module, hiding it from the prompt completely
+[package]
+disabled = true
+
+[aws]
+disabled = true
+
+[gcloud]
+disabled = true
+
+[openstack]
+disabled = true
+
+[username]
+style_user = 'bold yellow bg:#3c3836'
+style_root = 'black bold'
+format = '[$user]($style) in '
+disabled = false
+show_always = true
+
+[nodejs]
+format = 'via [Node $version](bold green) '
+
+[cmd_duration]
+min_time = 1000
+format = 'took [$duration](bold yellow) '
+
+# Clock after the rest of the info, behind a dim clock icon: when each command's prompt appeared
+[time]
+disabled = false
+time_format = '%T'
+format = '[󰅐 $time]($style)'
+style = 'bright-black'
+
+# Red marker for failed commands, stays visible in scrollback (Ctrl-C shows 130)
+[status]
+disabled = false
+symbol = '✘ '
+format = '[$symbol$status]($style) '
+style = 'bold red'
+
+[directory]
+style = 'bold cyan bg:#3c3836'
+read_only_style = 'red bg:#3c3836'
