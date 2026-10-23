@@ -2,6 +2,11 @@
 
 Changes Claude made to shell and terminal config, newest first. Each entry lists what changed, where the backup is, and how to undo it. Entries before the move to this repo refer to the files' old locations.
 
+## 2026-10-22 — README: link to the lint configs gist
+
+- `README.md`: new "Related" section linking the public gist [JS/TS linting and formatting](https://gist.github.com/narcizo/aa5406716b8c018e3e42913f42dc4858) (`eslint.config.mjs`, `.oxlintrc.json`, `.prettierrc`). They're per-project configs, so the gist stays their source.
+- Gists from this session were deleted by the user: `.zshrc`, `starship.toml`, Ghostty, Zellij and Karabiner.
+
 ## 2026-10-22 — Karabiner, VS Code and a Brewfile
 
 On branch `add-karabiner-vscode-brewfile`.

@@ -59,6 +59,10 @@ Music plugins and instruments come back through their own managers once those ar
 - Remove a package's links: `stow -D <package>`.
 - New app or CLI tool: add it to the `Brewfile`. `brew bundle check --file=~/dotfiles/Brewfile --verbose` lists what's missing.
 
+## Related
+
+- [JS/TS linting and formatting configs](https://gist.github.com/narcizo/aa5406716b8c018e3e42913f42dc4858): `eslint.config.mjs` (React), `.oxlintrc.json` (NestJS) and `.prettierrc`. These are per-project files, so they live in a gist to copy into each project, not in a Stow package.
+
 ## Notes
 
 - The files here are the live configs, so checking out another branch changes them immediately. A package that only exists on one branch disappears when you switch away from it, leaving broken symlinks. Merge before switching back.
