@@ -131,7 +131,8 @@ function node-init() {
 function bun-init() {
   local project="${1:?Usage: init-bun <project-name>}"
   bun init -y "$project" && cd "$project" &&
-  bun pm pkg set scripts.dev="bun --watch index.ts"
+  bun pm pkg set scripts.watch="bun --watch index.ts"
+  bun pm pkg set scripts.hot="bun --hot index.ts"
 }
 
 # ============================================

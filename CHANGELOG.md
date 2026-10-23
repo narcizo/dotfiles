@@ -2,6 +2,15 @@
 
 Changes Claude made to shell and terminal config, newest first. Each entry lists what changed, where the backup is, and how to undo it. Entries before the move to this repo refer to the files' old locations.
 
+## 2026-10-23 — Karabiner: fn and Ctrl remap on the Galaxy80
+
+On branch `karabiner/galaxy80-fn-option`.
+
+- `karabiner/.config/karabiner/karabiner.json`: new device entry for the Epomaker x Feker Galaxy80 (vendor 1452, product 591; in Mac mode it reports Apple's vendor ID). Right of the space bar the board sends `right_command, fn, left_option, right_control`. The entry maps `fn` to `right_option` (so Option+C gives ç from the MacBook's Option position) and `right_control` to fn. The other keyboards are unchanged.
+- The third key stays Option: it sends `left_option`, the same code as the left Alt, so Karabiner can't remap one without the other.
+- Backup: none, the previous version is the file on `main`.
+- Undo: `git checkout main -- karabiner/.config/karabiner/karabiner.json`, or delete the Galaxy80 entry under `devices`.
+
 ## 2026-10-22 — Writing rules inline instead of loading unslop
 
 - `claude/.claude/CLAUDE.md`: removed "When answering in english load the `unslop` skill". The skill has `disable-model-invocation: true`, so Claude could never load it, and at 891 words it would have cost more than the whole file on every reply. Added five of its rules inline instead (plain words, no em dashes, no chatbot filler, concrete claims, whole sentences in active voice). Also replaced the em dash in the closing-block exception line.
