@@ -4,18 +4,43 @@ My macOS setup, managed with [GNU Stow](https://www.gnu.org/software/stow/) and 
 
 Each top-level folder is a Stow package whose contents mirror the home directory. Stow symlinks them into `~`, so editing `~/.zshrc` edits the file in this repo.
 
-| Package | Files | Linked to |
-|---|---|---|
-| `zsh` | `.zshrc` | `~/.zshrc` |
-| `starship` | `.config/starship.toml` | `~/.config/starship.toml` |
-| `ghostty` | `.config/ghostty/config` | `~/.config/ghostty/` |
-| `zellij` | `.config/zellij/config.kdl`, `layouts/`, `themes/`, `scripts/` | `~/.config/zellij/` |
-| `karabiner` | `.config/karabiner/` (whole folder) | `~/.config/karabiner/` |
-| `vscode` | `Library/Application Support/Code/User/settings.json` | same path under `~` |
+| Package     | Files                                                          | Linked to                 |
+| ----------- | -------------------------------------------------------------- | ------------------------- |
+| `zsh`       | `.zshrc`                                                       | `~/.zshrc`                |
+| `starship`  | `.config/starship.toml`                                        | `~/.config/starship.toml` |
+| `ghostty`   | `.config/ghostty/config`                                       | `~/.config/ghostty/`      |
+| `zellij`    | `.config/zellij/config.kdl`, `layouts/`, `themes/`, `scripts/` | `~/.config/zellij/`       |
+| `karabiner` | `.config/karabiner/` (whole folder)                            | `~/.config/karabiner/`    |
+| `vscode`    | `Library/Application Support/Code/User/settings.json`          | same path under `~`       |
 
 ## Set up a new Mac
 
-1. Install [Homebrew](https://brew.sh), sign in to the App Store, then:
+1. Install [Homebrew](https://brew.sh) and sign in to the App Store.
+
+2. Set up an SSH key for GitHub (needed to clone and push over SSH).
+
+   ```bash
+   ssh-keygen -t ed25519 -C "<your email>"
+   ```
+
+   Create `~/.ssh/config` (then `chmod 600 ~/.ssh/config`) so macOS loads the key from the Keychain and you aren't asked for the passphrase after every reboot:
+
+   ```
+   Host *
+     AddKeysToAgent yes
+     UseKeychain yes
+     IdentityFile ~/.ssh/id_ed25519
+   ```
+
+   Store the passphrase in the Keychain, then add the public key to GitHub (Settings → SSH and GPG keys, or `gh ssh-key add ~/.ssh/id_ed25519.pub` once `gh` is installed):
+
+   ```bash
+   ssh-add --apple-use-keychain ~/.ssh/id_ed25519
+   ```
+
+   `~/.ssh/config` stays out of this repo on purpose: SSH configs tend to collect host names and servers.
+
+3. Clone the repo and install everything:
 
    ```bash
    brew install git stow
@@ -25,7 +50,7 @@ Each top-level folder is a Stow package whose contents mirror the home directory
 
    The Brewfile installs CLI tools, apps (casks), App Store apps (through `mas`) and VS Code extensions. Remove lines for anything you don't want first.
 
-2. Link the configs:
+4. Link the configs:
 
    ```bash
    cd ~/dotfiles && stow zsh starship ghostty zellij karabiner vscode
@@ -33,9 +58,9 @@ Each top-level folder is a Stow package whose contents mirror the home directory
 
    Stow refuses to overwrite real files. If a config already exists (e.g. a default `~/.zshrc`, or VS Code's first-run `settings.json`), move it aside first, or run `stow --adopt <package>` to pull it into the repo and then `git diff` to decide what to keep.
 
-3. First runs: zinit installs itself and its plugins on the first shell start. Zellij downloads the zjstatus plugin the first time it starts; click the bar and press `y` to grant its permissions. Karabiner and Logi Options+ need their macOS permissions approved in System Settings.
+5. First runs: zinit installs itself and its plugins on the first shell start. Zellij downloads the zjstatus plugin the first time it starts; click the bar and press `y` to grant its permissions. Karabiner and Logi Options+ need their macOS permissions approved in System Settings.
 
-4. Install what Homebrew can't (below).
+6. Install what Homebrew can't (below).
 
 ### Manual installs
 
