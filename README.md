@@ -1,6 +1,6 @@
 # dotfiles
 
-My macOS setup, managed with [GNU Stow](https://www.gnu.org/software/stow/) and a [Brewfile](Brewfile): zsh + zinit, Starship, Ghostty and Zellij in Gruvbox Dark, plus Karabiner, VS Code and the apps I use.
+My macOS setup, managed with [GNU Stow](https://www.gnu.org/software/stow/) and a [Brewfile](Brewfile): zsh + zinit, Starship, Ghostty and Zellij in Gruvbox Dark, plus Karabiner, VS Code, my global Claude Code instructions and the apps I use.
 
 Each top-level folder is a Stow package whose contents mirror the home directory. Stow symlinks them into `~`, so editing `~/.zshrc` edits the file in this repo.
 
@@ -12,6 +12,7 @@ Each top-level folder is a Stow package whose contents mirror the home directory
 | `zellij`    | `.config/zellij/config.kdl`, `layouts/`, `themes/`, `scripts/` | `~/.config/zellij/`       |
 | `karabiner` | `.config/karabiner/` (whole folder)                            | `~/.config/karabiner/`    |
 | `vscode`    | `Library/Application Support/Code/User/settings.json`          | same path under `~`       |
+| `claude`    | `.claude/CLAUDE.md`, `settings.json`, `skills/unslop/`         | `~/.claude/`              |
 
 ## Set up a new Mac
 
@@ -53,7 +54,7 @@ Each top-level folder is a Stow package whose contents mirror the home directory
 4. Link the configs:
 
    ```bash
-   cd ~/dotfiles && stow zsh starship ghostty zellij karabiner vscode
+   cd ~/dotfiles && stow zsh starship ghostty zellij karabiner vscode claude
    ```
 
    Stow refuses to overwrite real files. If a config already exists (e.g. a default `~/.zshrc`, or VS Code's first-run `settings.json`), move it aside first, or run `stow --adopt <package>` to pull it into the repo and then `git diff` to decide what to keep.
@@ -93,6 +94,8 @@ Music plugins and instruments come back through their own managers once those ar
 - The files here are the live configs, so checking out another branch changes them immediately. A package that only exists on one branch disappears when you switch away from it, leaving broken symlinks. Merge before switching back.
 - Ghostty reads `~/.config/ghostty/config`. Don't keep a second config in `~/Library/Application Support/com.mitchellh.ghostty/`: Ghostty loads that one too, after this one.
 - Karabiner is linked as a whole folder because it saves `karabiner.json` by replacing the file, which would break a file-level symlink. Its `automatic_backups/` folder is gitignored.
+- The `claude` package links only `CLAUDE.md`, `settings.json` and the `unslop` skill. The rest of `~/.claude` (history, sessions, caches, other skills) stays local. `CLAUDE.md` mentions a `music-profile` skill that isn't in this repo.
+- `CLAUDE.md` at the repo root (not in a package) tells Claude Code how to work in this repo.
 - zjstatus is pinned to v0.21.0, which matches Zellij 0.42.x. zjstatus >= 0.25 needs Zellij >= 0.45, so upgrade both together.
 - The zjstatus widgets call `~/.config/zellij/scripts/zjstatus-sys.sh`. Widget commands must return instantly, or they pile up.
 - Icons need a Nerd Font. Ghostty's default font includes the symbols.

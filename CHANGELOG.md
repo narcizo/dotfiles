@@ -2,6 +2,22 @@
 
 Changes Claude made to shell and terminal config, newest first. Each entry lists what changed, where the backup is, and how to undo it. Entries before the move to this repo refer to the files' old locations.
 
+## 2026-10-22 — Writing rules inline instead of loading unslop
+
+- `claude/.claude/CLAUDE.md`: removed "When answering in english load the `unslop` skill". The skill has `disable-model-invocation: true`, so Claude could never load it, and at 891 words it would have cost more than the whole file on every reply. Added five of its rules inline instead (plain words, no em dashes, no chatbot filler, concrete claims, whole sentences in active voice). Also replaced the em dash in the closing-block exception line.
+- `unslop` stays manual-only (`/unslop`).
+- Backup: `~/.config/dotfiles-backup-2026-10-22-unslop/CLAUDE.md`.
+- Undo: `cp ~/.config/dotfiles-backup-2026-10-22-unslop/CLAUDE.md claude/.claude/CLAUDE.md`.
+
+## 2026-10-22 — Claude Code setup in the repo
+
+- Global `~/.claude/CLAUDE.md`: new "Machine setup" section (config lives in `~/dotfiles`, add Homebrew installs to the `Brewfile`, user makes commits and destructive commands, preview visual changes before applying).
+- New `CLAUDE.md` at the repo root (not a Stow package): how the repo works, commit and changelog rules, how to verify each tool, and the gotchas found while setting it up.
+- New Stow package `claude`: `~/.claude/CLAUDE.md`, `~/.claude/settings.json` and `~/.claude/skills/unslop/` are now symlinks into `claude/.claude/`. The `music-profile` skill and everything else in `~/.claude` stay out of the repo.
+- `README.md`: `claude` row in the package table, `claude` added to the setup `stow` command, notes on what the package leaves out and on the root `CLAUDE.md`.
+- Backup: `~/.config/dotfiles-prestow-2026-10-22/claude/` (`CLAUDE.md` before the new section, `settings.json`, `skills/unslop/`).
+- Undo: `stow -D claude`, then copy the backups back into `~/.claude/`.
+
 ## 2026-10-22 — README: link to the lint configs gist
 
 - `README.md`: new "Related" section linking the public gist [JS/TS linting and formatting](https://gist.github.com/narcizo/aa5406716b8c018e3e42913f42dc4858) (`eslint.config.mjs`, `.oxlintrc.json`, `.prettierrc`). They're per-project configs, so the gist stays their source.
