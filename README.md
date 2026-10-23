@@ -1,6 +1,6 @@
 # dotfiles
 
-My macOS terminal setup, managed with [GNU Stow](https://www.gnu.org/software/stow/): zsh + zinit, Starship, Ghostty and Zellij, all in Gruvbox Dark.
+My macOS setup, managed with [GNU Stow](https://www.gnu.org/software/stow/) and a [Brewfile](Brewfile): zsh + zinit, Starship, Ghostty and Zellij in Gruvbox Dark, plus Karabiner, VS Code and the apps I use.
 
 Each top-level folder is a Stow package whose contents mirror the home directory. Stow symlinks them into `~`, so editing `~/.zshrc` edits the file in this repo.
 
@@ -10,19 +10,46 @@ Each top-level folder is a Stow package whose contents mirror the home directory
 | `starship` | `.config/starship.toml` | `~/.config/starship.toml` |
 | `ghostty` | `.config/ghostty/config` | `~/.config/ghostty/` |
 | `zellij` | `.config/zellij/config.kdl`, `layouts/`, `themes/`, `scripts/` | `~/.config/zellij/` |
+| `karabiner` | `.config/karabiner/` (whole folder) | `~/.config/karabiner/` |
+| `vscode` | `Library/Application Support/Code/User/settings.json` | same path under `~` |
 
 ## Set up a new Mac
 
-```bash
-brew install stow starship zellij fnm fzf zoxide eza thefuck
-git clone git@github.com:narcizo/dotfiles.git ~/dotfiles
-cd ~/dotfiles
-stow zsh starship ghostty zellij
-```
+1. Install [Homebrew](https://brew.sh), sign in to the App Store, then:
 
-Stow refuses to overwrite real files. If a config already exists (e.g. a default `~/.zshrc`), move it aside first, or run `stow --adopt <package>` to pull it into the repo and then `git diff` to decide what to keep.
+   ```bash
+   brew install git stow
+   git clone git@github.com:narcizo/dotfiles.git ~/dotfiles
+   brew bundle --file=~/dotfiles/Brewfile
+   ```
 
-zinit installs itself and its plugins on the first shell start. Zellij downloads the zjstatus plugin the first time it starts; click the bar and press `y` to grant its permissions.
+   The Brewfile installs CLI tools, apps (casks), App Store apps (through `mas`) and VS Code extensions. Remove lines for anything you don't want first.
+
+2. Link the configs:
+
+   ```bash
+   cd ~/dotfiles && stow zsh starship ghostty zellij karabiner vscode
+   ```
+
+   Stow refuses to overwrite real files. If a config already exists (e.g. a default `~/.zshrc`, or VS Code's first-run `settings.json`), move it aside first, or run `stow --adopt <package>` to pull it into the repo and then `git diff` to decide what to keep.
+
+3. First runs: zinit installs itself and its plugins on the first shell start. Zellij downloads the zjstatus plugin the first time it starts; click the bar and press `y` to grant its permissions. Karabiner and Logi Options+ need their macOS permissions approved in System Settings.
+
+4. Install what Homebrew can't (below).
+
+### Manual installs
+
+No Homebrew cask or App Store entry for these:
+
+- [ ] Steven Slate Audio Center
+- [ ] XLN Online Installer
+- [ ] Spitfire LABS
+- [ ] Neural Amp Modeler (plugin and app)
+- [ ] Blackmagic Proxy Generator Lite
+- [ ] Riot Client
+- [ ] Runner
+
+Music plugins and instruments come back through their own managers once those are installed: Native Access, Splice, Spitfire Audio, Waves Central, UA Connect, iZotope Product Portal, IK Product Manager, iLok License Manager.
 
 ## Day to day
 
@@ -30,10 +57,13 @@ zinit installs itself and its plugins on the first shell start. Zellij downloads
 - New file in an existing package: put it in the package folder, then `stow -R <package>`.
 - New tool: create a folder that mirrors its path under `~`, e.g. `tmux/.tmux.conf`, then `stow tmux`.
 - Remove a package's links: `stow -D <package>`.
+- New app or CLI tool: add it to the `Brewfile`. `brew bundle check --file=~/dotfiles/Brewfile --verbose` lists what's missing.
 
 ## Notes
 
+- The files here are the live configs, so checking out another branch changes them immediately. A package that only exists on one branch disappears when you switch away from it, leaving broken symlinks. Merge before switching back.
 - Ghostty reads `~/.config/ghostty/config`. Don't keep a second config in `~/Library/Application Support/com.mitchellh.ghostty/`: Ghostty loads that one too, after this one.
+- Karabiner is linked as a whole folder because it saves `karabiner.json` by replacing the file, which would break a file-level symlink. Its `automatic_backups/` folder is gitignored.
 - zjstatus is pinned to v0.21.0, which matches Zellij 0.42.x. zjstatus >= 0.25 needs Zellij >= 0.45, so upgrade both together.
 - The zjstatus widgets call `~/.config/zellij/scripts/zjstatus-sys.sh`. Widget commands must return instantly, or they pile up.
 - Icons need a Nerd Font. Ghostty's default font includes the symbols.

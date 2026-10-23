@@ -2,6 +2,21 @@
 
 Changes Claude made to shell and terminal config, newest first. Each entry lists what changed, where the backup is, and how to undo it. Entries before the move to this repo refer to the files' old locations.
 
+## 2026-10-22 — Karabiner, VS Code and a Brewfile
+
+On branch `add-karabiner-vscode-brewfile`.
+
+- New Stow package `karabiner`: moved the whole `~/.config/karabiner/` folder into the repo and stowed it, so `~/.config/karabiner` is a folder symlink (Karabiner replaces `karabiner.json` on save, which would break a file symlink). Restarted Karabiner's user service (`launchctl kickstart -k gui/501/org.pqrs.service.agent.Karabiner-Console-User-Server`); it reads the config through the link (1 profile, 4 rules).
+- `.gitignore`: added `karabiner/.config/karabiner/automatic_backups/`.
+- Added `assets/complex_modifications/narcizos-rules.json` ("Narcizo's Custom Rules", 4 rules) from the Karabiner gist, so the importable rule set lives in the repo before the gist is deleted. Its rules are identical to the 4 active ones in `karabiner.json`; Karabiner only reads it from "Add predefined rule".
+- New Stow package `vscode`: `~/Library/Application Support/Code/User/settings.json` is now a symlink into the repo. No `keybindings.json` or snippets existed.
+- Installed `mas` (App Store CLI) with Homebrew.
+- New `Brewfile` (122 entries): 1 tap, 22 formulae, 51 casks (the 4 already brew-installed plus apps installed by hand that have a cask), 10 App Store apps, 37 VS Code extensions. Picked `helium-browser` and `zen` by matching bundle IDs (`net.imput.helium`, `app.zen-browser.zen`). Left out `npm "corepack"`: it ships with Node, which fnm manages per version.
+- `brew bundle check` parses the file. It reports "needs install" for hand-installed apps and for VS Code extensions (no `code` on PATH here, only the zsh alias); that's expected on this Mac.
+- `README.md`: new packages, Brewfile setup steps, manual-install checklist, and a warning that switching branches changes live configs.
+- Backups before the move: `~/.config/dotfiles-prestow-2026-10-22/karabiner/` and `vscode-settings.json`.
+- Undo: `stow -D karabiner vscode`, copy the backups back, delete the `Brewfile`.
+
 ## 2026-10-22 — Moved configs into ~/dotfiles with GNU Stow
 
 - Installed `stow` with Homebrew.
