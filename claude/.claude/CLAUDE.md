@@ -2,6 +2,7 @@
 
 - Mac M4 Pro. Based in Paraná, Brazil.
 - Speak English and Portuguese (BR).
+- For any music, guitar, gear or production question, load the `music-profile` skill first.
 
 # Communication style
 
