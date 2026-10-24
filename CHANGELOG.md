@@ -2,6 +2,12 @@
 
 Changes Claude made to shell and terminal config, newest first. Each entry lists what changed, where the backup is, and how to undo it. Entries before the move to this repo refer to the files' old locations.
 
+## 2026-10-24 - Ghostty: Cmd+K clears the screen inside Zellij
+
+- `ghostty/.config/ghostty/config`: new `keybind = super+k=text:\x0c`. Ghostty's default Cmd+K clears its own screen, but Zellij redraws its panes over it right away. The keybind sends the Ctrl+L character to the shell instead, so zsh clears the screen in or out of Zellij. Karabiner never sees it, so the Ctrl+L to Right Arrow rule doesn't apply. Scrollback is kept, unlike Ghostty's own clear.
+- Backup: `~/.config/dotfiles-backup-2026-10-24-ghostty/config`.
+- Undo: delete the `keybind` line and its comment, or `cp ~/.config/dotfiles-backup-2026-10-24-ghostty/config ghostty/.config/ghostty/`.
+
 ## 2026-10-24 - Karabiner: Caps + Right Shift sends Backspace again
 
 - `karabiner/.config/karabiner/karabiner.json` and `karabiner/.config/karabiner/assets/complex_modifications/narcizos-rules.json`: in the Caps Lock rule, the `caps_lock` + mandatory `right_shift` manipulator now comes before the plain `caps_lock` one. Karabiner uses the first manipulator that matches, and the plain one accepts any modifier, so it caught Caps while Right Shift was held and sent Ctrl. Backspace never fired.

@@ -7,3 +7,5 @@ background-blur-radius = 20
 cursor-style = block
 cursor-style-blink = false
 macos-option-as-alt = true
+# Cmd+K sends Ctrl+L to the shell, so it clears inside Zellij too
+keybind = super+k=text:\x0c
