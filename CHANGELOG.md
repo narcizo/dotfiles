@@ -2,6 +2,12 @@
 
 Changes Claude made to shell and terminal config, newest first. Each entry lists what changed, where the backup is, and how to undo it. Entries before the move to this repo refer to the files' old locations.
 
+## 2026-10-24 - Karabiner: Caps + Right Shift sends Backspace again
+
+- `karabiner/.config/karabiner/karabiner.json` and `karabiner/.config/karabiner/assets/complex_modifications/narcizos-rules.json`: in the Caps Lock rule, the `caps_lock` + mandatory `right_shift` manipulator now comes before the plain `caps_lock` one. Karabiner uses the first manipulator that matches, and the plain one accepts any modifier, so it caught Caps while Right Shift was held and sent Ctrl. Backspace never fired.
+- Backup: `~/.config/dotfiles-backup-2026-10-24-karabiner/` (both files).
+- Undo: `cp ~/.config/dotfiles-backup-2026-10-24-karabiner/karabiner.json karabiner/.config/karabiner/` and `cp ~/.config/dotfiles-backup-2026-10-24-karabiner/narcizos-rules.json karabiner/.config/karabiner/assets/complex_modifications/`.
+
 ## 2026-10-23 — Karabiner: fn and Ctrl remap on the Galaxy80
 
 On branch `karabiner/galaxy80-fn-option`.
