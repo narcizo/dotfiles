@@ -2,6 +2,18 @@
 
 Changes Claude made to shell and terminal config, newest first. Each entry lists what changed, where the backup is, and how to undo it. Entries before the move to this repo refer to the files' old locations.
 
+## 2026-10-24 - Karabiner: rules in karabiner.ts, symbol and number layers
+
+- New folder `karabiner-ts/` (not a Stow package): `index.ts` builds the Karabiner rules with [karabiner.ts](https://github.com/evan-liu/karabiner.ts) 1.38, run with `bun run build`. It replaces only `complex_modifications` in the profile; `devices` (the Galaxy80 remap and the ignored Logitech device) and `virtual_hid_keyboard` were checked and are unchanged.
+- The 4 existing rules are ported as they were. The generated manipulators match the old ones exactly.
+- New symbol layer: hold Right Cmd. Top row `! @ # $ % ^ & * =>` (`o` types `=>` in one press, `p` is blocked), home row `{ ( [ = - _ + ] ) }`, bottom row `` | ` " ' ~ ? < / > \ ``. `< / >` sit together under the right index, middle and ring fingers for JSX and generics, the quotes move off the right pinky, and `;` and `:` are left out because they're on the base home row. Right Cmd + a number still sends Cmd + that number for the Raycast app shortcuts, and Right Cmd + Space sends Cmd + Space (Raycast). Tapped alone, Right Cmd sends Backspace, so the right pinky doesn't reach for it. Held modifiers pass through: Option + tap deletes a word, Cmd + tap deletes to the start of the line. The Backspace fires on release and doesn't repeat when held. `layer()` refuses modifier keys, so this layer uses its own variable.
+- New number layer: hold Tab. `u i o` = 7 8 9, `j k l` = 4 5 6, `m , .` = 1 2 3, Space = 0. Every other letter and punctuation key is blocked while Tab is held, so a stray press types nothing. Only plain Tab triggers it, so Cmd+Tab, Ctrl+Tab and Shift+Tab are unchanged. Tab now types on release, and holding it no longer repeats.
+- `karabiner.json` now also has a `parameters` block with Karabiner's default timings, and is formatted with 2-space indentation.
+- `karabiner/.config/karabiner/assets/complex_modifications/narcizos-rules.json` is now out of date (it lacks the layers).
+- `.gitignore`: `karabiner-ts/node_modules/`. `README.md`: note on how to build the rules.
+- Backup: `~/.config/dotfiles-backup-2026-10-24-karabiner-ts/karabiner.json`.
+- Undo: `cp ~/.config/dotfiles-backup-2026-10-24-karabiner-ts/karabiner.json karabiner/.config/karabiner/`, then restart Karabiner. Delete `karabiner-ts/` if you don't want it.
+
 ## 2026-10-24 - Ghostty: Cmd+K clears the screen inside Zellij
 
 - `ghostty/.config/ghostty/config`: new `keybind = super+k=text:\x0c`. Ghostty's default Cmd+K clears its own screen, but Zellij redraws its panes over it right away. The keybind sends the Ctrl+L character to the shell instead, so zsh clears the screen in or out of Zellij. Karabiner never sees it, so the Ctrl+L to Right Arrow rule doesn't apply. Scrollback is kept, unlike Ghostty's own clear.

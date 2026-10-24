@@ -1,0 +1,19 @@
+{
+  "name": "karabiner-ts",
+  "module": "index.ts",
+  "type": "module",
+  "private": true,
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^7"
+  },
+  "dependencies": {
+    "karabiner.ts": "^1.38.0"
+  },
+  "scripts": {
+    "build": "bun run index.ts",
+    "dry-run": "bun run index.ts --dry-run"
+  }
+}
