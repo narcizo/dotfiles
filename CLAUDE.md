@@ -12,7 +12,7 @@ My macOS config, managed with GNU Stow. See `README.md` for the layout and new-M
 ## Working here
 
 - I make commits myself: end with a commit message (conventional-commit style) instead of committing.
-- Back up a file before a risky change. Log changes to files in this repo in `CHANGELOG.md` (newest first: what changed, backup path, how to undo). Changes outside the repo (e.g. `~/.ssh/config`) don't go in the changelog.
+- Back up a file before a risky change. Log changes to files in this repo in `CHANGELOG.md` (newest first: what changed, backup path, how to undo). Only log changes to how a tool behaves (keybinds, layers, remaps, settings you'd want to undo); skip minor tooling or editor fixes like lint or type errors, and keep entries short. Changes outside the repo (e.g. `~/.ssh/config`) don't go in the changelog.
 - Never commit secrets. The repo is public: scan new files for tokens, keys and passwords before adding them. `~/.ssh/config` stays out of the repo.
 
 ## Verifying changes
