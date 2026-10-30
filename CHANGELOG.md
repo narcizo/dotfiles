@@ -2,6 +2,12 @@
 
 Changes Claude made to shell and terminal config, newest first. Each entry lists what changed, where the backup is, and how to undo it. Entries before the move to this repo refer to the files' old locations.
 
+## 2026-10-29 - zsh: Go from Homebrew instead of Webi
+
+- `zsh/.zshrc`: the Webi `envman` loader is replaced by `export PATH="$HOME/go/bin:$PATH"`. Go 1.27.3 now comes from Homebrew (`/opt/homebrew/bin/go`), and `Brewfile` has `brew "go"`. `~/go` was a Webi symlink to `~/.local/opt/go-bin-v1.27.3`, so removing Webi also removed `gopls` and `bootdev`. `~/go` is now a plain folder, and both were reinstalled with `go install`.
+- Backup: `~/.config/dotfiles-backup-2026-10-29-zsh/.zshrc`.
+- Undo: `cp ~/.config/dotfiles-backup-2026-10-29-zsh/.zshrc zsh/` (needs Webi's `~/.config/envman` and `~/.local/opt/go`, if you haven't deleted them).
+
 ## 2026-10-29 - Karabiner: `=>` moves to Right Cmd + `p`
 
 - `karabiner-ts/index.ts`: Right Cmd + `p` types `=>`. Right Cmd + `o` is Cmd+O again, and Right Cmd + `p` no longer sends Cmd+P (Left Cmd + `p` still does).

@@ -144,3 +144,6 @@ source <(fzf --zsh)
 # zoxide — smarter cd, keep last
 # ============================================
 eval "$(zoxide init zsh)"
+
+# Go (from Homebrew); binaries from `go install` land in ~/go/bin
+export PATH="$HOME/go/bin:$PATH"

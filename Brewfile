@@ -21,6 +21,7 @@ brew "act"
 brew "docker"
 brew "git-graph"
 brew "openjdk@21"
+brew "go"
 brew "postgresql@18", link: true
 
 # Media and utilities
