@@ -211,7 +211,7 @@
             ]
           },
           {
-            "description": "Hold Right Cmd for the symbol layer, tap for Backspace",
+            "description": "Right Cmd: tap for Backspace",
             "manipulators": [
               {
                 "type": "basic",
@@ -225,35 +225,32 @@
                 },
                 "to": [
                   {
-                    "set_variable": {
-                      "name": "symbol-layer",
-                      "value": 1
-                    }
-                  }
-                ],
-                "to_after_key_up": [
-                  {
-                    "set_variable": {
-                      "name": "symbol-layer",
-                      "value": 0
-                    }
+                    "key_code": "right_command"
                   }
                 ],
                 "to_if_alone": [
                   {
                     "key_code": "delete_or_backspace"
                   }
-                ]
+                ],
+                "parameters": {
+                  "basic.to_if_alone_timeout_milliseconds": 250
+                }
               }
             ]
           },
           {
-            "description": "Symbol layer",
+            "description": "Symbol layer (Right Cmd + key)",
             "manipulators": [
               {
                 "type": "basic",
                 "from": {
-                  "key_code": "q"
+                  "key_code": "q",
+                  "modifiers": {
+                    "mandatory": [
+                      "right_command"
+                    ]
+                  }
                 },
                 "to": [
                   {
@@ -262,19 +259,17 @@
                       "left_shift"
                     ]
                   }
-                ],
-                "conditions": [
-                  {
-                    "type": "variable_if",
-                    "name": "symbol-layer",
-                    "value": 1
-                  }
                 ]
               },
               {
                 "type": "basic",
                 "from": {
-                  "key_code": "w"
+                  "key_code": "w",
+                  "modifiers": {
+                    "mandatory": [
+                      "right_command"
+                    ]
+                  }
                 },
                 "to": [
                   {
@@ -283,19 +278,17 @@
                       "left_shift"
                     ]
                   }
-                ],
-                "conditions": [
-                  {
-                    "type": "variable_if",
-                    "name": "symbol-layer",
-                    "value": 1
-                  }
                 ]
               },
               {
                 "type": "basic",
                 "from": {
-                  "key_code": "e"
+                  "key_code": "e",
+                  "modifiers": {
+                    "mandatory": [
+                      "right_command"
+                    ]
+                  }
                 },
                 "to": [
                   {
@@ -304,19 +297,17 @@
                       "left_shift"
                     ]
                   }
-                ],
-                "conditions": [
-                  {
-                    "type": "variable_if",
-                    "name": "symbol-layer",
-                    "value": 1
-                  }
                 ]
               },
               {
                 "type": "basic",
                 "from": {
-                  "key_code": "r"
+                  "key_code": "r",
+                  "modifiers": {
+                    "mandatory": [
+                      "right_command"
+                    ]
+                  }
                 },
                 "to": [
                   {
@@ -325,19 +316,17 @@
                       "left_shift"
                     ]
                   }
-                ],
-                "conditions": [
-                  {
-                    "type": "variable_if",
-                    "name": "symbol-layer",
-                    "value": 1
-                  }
                 ]
               },
               {
                 "type": "basic",
                 "from": {
-                  "key_code": "t"
+                  "key_code": "t",
+                  "modifiers": {
+                    "mandatory": [
+                      "right_command"
+                    ]
+                  }
                 },
                 "to": [
                   {
@@ -346,19 +335,17 @@
                       "left_shift"
                     ]
                   }
-                ],
-                "conditions": [
-                  {
-                    "type": "variable_if",
-                    "name": "symbol-layer",
-                    "value": 1
-                  }
                 ]
               },
               {
                 "type": "basic",
                 "from": {
-                  "key_code": "y"
+                  "key_code": "y",
+                  "modifiers": {
+                    "mandatory": [
+                      "right_command"
+                    ]
+                  }
                 },
                 "to": [
                   {
@@ -367,19 +354,17 @@
                       "left_shift"
                     ]
                   }
-                ],
-                "conditions": [
-                  {
-                    "type": "variable_if",
-                    "name": "symbol-layer",
-                    "value": 1
-                  }
                 ]
               },
               {
                 "type": "basic",
                 "from": {
-                  "key_code": "u"
+                  "key_code": "u",
+                  "modifiers": {
+                    "mandatory": [
+                      "right_command"
+                    ]
+                  }
                 },
                 "to": [
                   {
@@ -388,19 +373,17 @@
                       "left_shift"
                     ]
                   }
-                ],
-                "conditions": [
-                  {
-                    "type": "variable_if",
-                    "name": "symbol-layer",
-                    "value": 1
-                  }
                 ]
               },
               {
                 "type": "basic",
                 "from": {
-                  "key_code": "i"
+                  "key_code": "i",
+                  "modifiers": {
+                    "mandatory": [
+                      "right_command"
+                    ]
+                  }
                 },
                 "to": [
                   {
@@ -409,19 +392,17 @@
                       "left_shift"
                     ]
                   }
-                ],
-                "conditions": [
-                  {
-                    "type": "variable_if",
-                    "name": "symbol-layer",
-                    "value": 1
-                  }
                 ]
               },
               {
                 "type": "basic",
                 "from": {
-                  "key_code": "a"
+                  "key_code": "a",
+                  "modifiers": {
+                    "mandatory": [
+                      "right_command"
+                    ]
+                  }
                 },
                 "to": [
                   {
@@ -430,19 +411,17 @@
                       "left_shift"
                     ]
                   }
-                ],
-                "conditions": [
-                  {
-                    "type": "variable_if",
-                    "name": "symbol-layer",
-                    "value": 1
-                  }
                 ]
               },
               {
                 "type": "basic",
                 "from": {
-                  "key_code": "s"
+                  "key_code": "s",
+                  "modifiers": {
+                    "mandatory": [
+                      "right_command"
+                    ]
+                  }
                 },
                 "to": [
                   {
@@ -451,73 +430,65 @@
                       "left_shift"
                     ]
                   }
-                ],
-                "conditions": [
-                  {
-                    "type": "variable_if",
-                    "name": "symbol-layer",
-                    "value": 1
-                  }
                 ]
               },
               {
                 "type": "basic",
                 "from": {
-                  "key_code": "d"
+                  "key_code": "d",
+                  "modifiers": {
+                    "mandatory": [
+                      "right_command"
+                    ]
+                  }
                 },
                 "to": [
                   {
                     "key_code": "open_bracket"
                   }
-                ],
-                "conditions": [
-                  {
-                    "type": "variable_if",
-                    "name": "symbol-layer",
-                    "value": 1
-                  }
                 ]
               },
               {
                 "type": "basic",
                 "from": {
-                  "key_code": "f"
+                  "key_code": "f",
+                  "modifiers": {
+                    "mandatory": [
+                      "right_command"
+                    ]
+                  }
                 },
                 "to": [
                   {
                     "key_code": "equal_sign"
                   }
-                ],
-                "conditions": [
-                  {
-                    "type": "variable_if",
-                    "name": "symbol-layer",
-                    "value": 1
-                  }
                 ]
               },
               {
                 "type": "basic",
                 "from": {
-                  "key_code": "g"
+                  "key_code": "g",
+                  "modifiers": {
+                    "mandatory": [
+                      "right_command"
+                    ]
+                  }
                 },
                 "to": [
                   {
                     "key_code": "hyphen"
                   }
-                ],
-                "conditions": [
-                  {
-                    "type": "variable_if",
-                    "name": "symbol-layer",
-                    "value": 1
-                  }
                 ]
               },
               {
                 "type": "basic",
                 "from": {
-                  "key_code": "h"
+                  "key_code": "h",
+                  "modifiers": {
+                    "mandatory": [
+                      "right_command"
+                    ]
+                  }
                 },
                 "to": [
                   {
@@ -526,19 +497,17 @@
                       "left_shift"
                     ]
                   }
-                ],
-                "conditions": [
-                  {
-                    "type": "variable_if",
-                    "name": "symbol-layer",
-                    "value": 1
-                  }
                 ]
               },
               {
                 "type": "basic",
                 "from": {
-                  "key_code": "j"
+                  "key_code": "j",
+                  "modifiers": {
+                    "mandatory": [
+                      "right_command"
+                    ]
+                  }
                 },
                 "to": [
                   {
@@ -547,37 +516,33 @@
                       "left_shift"
                     ]
                   }
-                ],
-                "conditions": [
-                  {
-                    "type": "variable_if",
-                    "name": "symbol-layer",
-                    "value": 1
-                  }
                 ]
               },
               {
                 "type": "basic",
                 "from": {
-                  "key_code": "k"
+                  "key_code": "k",
+                  "modifiers": {
+                    "mandatory": [
+                      "right_command"
+                    ]
+                  }
                 },
                 "to": [
                   {
                     "key_code": "close_bracket"
                   }
-                ],
-                "conditions": [
-                  {
-                    "type": "variable_if",
-                    "name": "symbol-layer",
-                    "value": 1
-                  }
                 ]
               },
               {
                 "type": "basic",
                 "from": {
-                  "key_code": "l"
+                  "key_code": "l",
+                  "modifiers": {
+                    "mandatory": [
+                      "right_command"
+                    ]
+                  }
                 },
                 "to": [
                   {
@@ -586,19 +551,17 @@
                       "left_shift"
                     ]
                   }
-                ],
-                "conditions": [
-                  {
-                    "type": "variable_if",
-                    "name": "symbol-layer",
-                    "value": 1
-                  }
                 ]
               },
               {
                 "type": "basic",
                 "from": {
-                  "key_code": "semicolon"
+                  "key_code": "semicolon",
+                  "modifiers": {
+                    "mandatory": [
+                      "right_command"
+                    ]
+                  }
                 },
                 "to": [
                   {
@@ -607,19 +570,36 @@
                       "left_shift"
                     ]
                   }
-                ],
-                "conditions": [
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "quote",
+                  "modifiers": {
+                    "mandatory": [
+                      "right_command"
+                    ]
+                  }
+                },
+                "to": [
                   {
-                    "type": "variable_if",
-                    "name": "symbol-layer",
-                    "value": 1
+                    "key_code": "semicolon",
+                    "modifiers": [
+                      "left_shift"
+                    ]
                   }
                 ]
               },
               {
                 "type": "basic",
                 "from": {
-                  "key_code": "z"
+                  "key_code": "z",
+                  "modifiers": {
+                    "mandatory": [
+                      "right_command"
+                    ]
+                  }
                 },
                 "to": [
                   {
@@ -628,37 +608,33 @@
                       "left_shift"
                     ]
                   }
-                ],
-                "conditions": [
-                  {
-                    "type": "variable_if",
-                    "name": "symbol-layer",
-                    "value": 1
-                  }
                 ]
               },
               {
                 "type": "basic",
                 "from": {
-                  "key_code": "x"
+                  "key_code": "x",
+                  "modifiers": {
+                    "mandatory": [
+                      "right_command"
+                    ]
+                  }
                 },
                 "to": [
                   {
                     "key_code": "grave_accent_and_tilde"
                   }
-                ],
-                "conditions": [
-                  {
-                    "type": "variable_if",
-                    "name": "symbol-layer",
-                    "value": 1
-                  }
                 ]
               },
               {
                 "type": "basic",
                 "from": {
-                  "key_code": "c"
+                  "key_code": "c",
+                  "modifiers": {
+                    "mandatory": [
+                      "right_command"
+                    ]
+                  }
                 },
                 "to": [
                   {
@@ -667,37 +643,33 @@
                       "left_shift"
                     ]
                   }
-                ],
-                "conditions": [
-                  {
-                    "type": "variable_if",
-                    "name": "symbol-layer",
-                    "value": 1
-                  }
                 ]
               },
               {
                 "type": "basic",
                 "from": {
-                  "key_code": "v"
+                  "key_code": "v",
+                  "modifiers": {
+                    "mandatory": [
+                      "right_command"
+                    ]
+                  }
                 },
                 "to": [
                   {
                     "key_code": "quote"
                   }
-                ],
-                "conditions": [
-                  {
-                    "type": "variable_if",
-                    "name": "symbol-layer",
-                    "value": 1
-                  }
                 ]
               },
               {
                 "type": "basic",
                 "from": {
-                  "key_code": "b"
+                  "key_code": "b",
+                  "modifiers": {
+                    "mandatory": [
+                      "right_command"
+                    ]
+                  }
                 },
                 "to": [
                   {
@@ -706,19 +678,17 @@
                       "left_shift"
                     ]
                   }
-                ],
-                "conditions": [
-                  {
-                    "type": "variable_if",
-                    "name": "symbol-layer",
-                    "value": 1
-                  }
                 ]
               },
               {
                 "type": "basic",
                 "from": {
-                  "key_code": "n"
+                  "key_code": "n",
+                  "modifiers": {
+                    "mandatory": [
+                      "right_command"
+                    ]
+                  }
                 },
                 "to": [
                   {
@@ -727,19 +697,17 @@
                       "left_shift"
                     ]
                   }
-                ],
-                "conditions": [
-                  {
-                    "type": "variable_if",
-                    "name": "symbol-layer",
-                    "value": 1
-                  }
                 ]
               },
               {
                 "type": "basic",
                 "from": {
-                  "key_code": "m"
+                  "key_code": "m",
+                  "modifiers": {
+                    "mandatory": [
+                      "right_command"
+                    ]
+                  }
                 },
                 "to": [
                   {
@@ -748,37 +716,33 @@
                       "left_shift"
                     ]
                   }
-                ],
-                "conditions": [
-                  {
-                    "type": "variable_if",
-                    "name": "symbol-layer",
-                    "value": 1
-                  }
                 ]
               },
               {
                 "type": "basic",
                 "from": {
-                  "key_code": "comma"
+                  "key_code": "comma",
+                  "modifiers": {
+                    "mandatory": [
+                      "right_command"
+                    ]
+                  }
                 },
                 "to": [
                   {
                     "key_code": "slash"
                   }
-                ],
-                "conditions": [
-                  {
-                    "type": "variable_if",
-                    "name": "symbol-layer",
-                    "value": 1
-                  }
                 ]
               },
               {
                 "type": "basic",
                 "from": {
-                  "key_code": "period"
+                  "key_code": "period",
+                  "modifiers": {
+                    "mandatory": [
+                      "right_command"
+                    ]
+                  }
                 },
                 "to": [
                   {
@@ -787,37 +751,33 @@
                       "left_shift"
                     ]
                   }
-                ],
-                "conditions": [
-                  {
-                    "type": "variable_if",
-                    "name": "symbol-layer",
-                    "value": 1
-                  }
                 ]
               },
               {
                 "type": "basic",
                 "from": {
-                  "key_code": "slash"
+                  "key_code": "slash",
+                  "modifiers": {
+                    "mandatory": [
+                      "right_command"
+                    ]
+                  }
                 },
                 "to": [
                   {
                     "key_code": "backslash"
                   }
-                ],
-                "conditions": [
-                  {
-                    "type": "variable_if",
-                    "name": "symbol-layer",
-                    "value": 1
-                  }
                 ]
               },
               {
                 "type": "basic",
                 "from": {
-                  "key_code": "o"
+                  "key_code": "p",
+                  "modifiers": {
+                    "mandatory": [
+                      "right_command"
+                    ]
+                  }
                 },
                 "to": [
                   {
@@ -828,262 +788,6 @@
                     "modifiers": [
                       "left_shift"
                     ]
-                  }
-                ],
-                "conditions": [
-                  {
-                    "type": "variable_if",
-                    "name": "symbol-layer",
-                    "value": 1
-                  }
-                ]
-              },
-              {
-                "type": "basic",
-                "from": {
-                  "key_code": "p"
-                },
-                "to": [
-                  {
-                    "key_code": "vk_none"
-                  }
-                ],
-                "conditions": [
-                  {
-                    "type": "variable_if",
-                    "name": "symbol-layer",
-                    "value": 1
-                  }
-                ]
-              },
-              {
-                "type": "basic",
-                "from": {
-                  "key_code": "1"
-                },
-                "to": [
-                  {
-                    "key_code": "1",
-                    "modifiers": [
-                      "left_command"
-                    ]
-                  }
-                ],
-                "conditions": [
-                  {
-                    "type": "variable_if",
-                    "name": "symbol-layer",
-                    "value": 1
-                  }
-                ]
-              },
-              {
-                "type": "basic",
-                "from": {
-                  "key_code": "2"
-                },
-                "to": [
-                  {
-                    "key_code": "2",
-                    "modifiers": [
-                      "left_command"
-                    ]
-                  }
-                ],
-                "conditions": [
-                  {
-                    "type": "variable_if",
-                    "name": "symbol-layer",
-                    "value": 1
-                  }
-                ]
-              },
-              {
-                "type": "basic",
-                "from": {
-                  "key_code": "3"
-                },
-                "to": [
-                  {
-                    "key_code": "3",
-                    "modifiers": [
-                      "left_command"
-                    ]
-                  }
-                ],
-                "conditions": [
-                  {
-                    "type": "variable_if",
-                    "name": "symbol-layer",
-                    "value": 1
-                  }
-                ]
-              },
-              {
-                "type": "basic",
-                "from": {
-                  "key_code": "4"
-                },
-                "to": [
-                  {
-                    "key_code": "4",
-                    "modifiers": [
-                      "left_command"
-                    ]
-                  }
-                ],
-                "conditions": [
-                  {
-                    "type": "variable_if",
-                    "name": "symbol-layer",
-                    "value": 1
-                  }
-                ]
-              },
-              {
-                "type": "basic",
-                "from": {
-                  "key_code": "5"
-                },
-                "to": [
-                  {
-                    "key_code": "5",
-                    "modifiers": [
-                      "left_command"
-                    ]
-                  }
-                ],
-                "conditions": [
-                  {
-                    "type": "variable_if",
-                    "name": "symbol-layer",
-                    "value": 1
-                  }
-                ]
-              },
-              {
-                "type": "basic",
-                "from": {
-                  "key_code": "6"
-                },
-                "to": [
-                  {
-                    "key_code": "6",
-                    "modifiers": [
-                      "left_command"
-                    ]
-                  }
-                ],
-                "conditions": [
-                  {
-                    "type": "variable_if",
-                    "name": "symbol-layer",
-                    "value": 1
-                  }
-                ]
-              },
-              {
-                "type": "basic",
-                "from": {
-                  "key_code": "7"
-                },
-                "to": [
-                  {
-                    "key_code": "7",
-                    "modifiers": [
-                      "left_command"
-                    ]
-                  }
-                ],
-                "conditions": [
-                  {
-                    "type": "variable_if",
-                    "name": "symbol-layer",
-                    "value": 1
-                  }
-                ]
-              },
-              {
-                "type": "basic",
-                "from": {
-                  "key_code": "8"
-                },
-                "to": [
-                  {
-                    "key_code": "8",
-                    "modifiers": [
-                      "left_command"
-                    ]
-                  }
-                ],
-                "conditions": [
-                  {
-                    "type": "variable_if",
-                    "name": "symbol-layer",
-                    "value": 1
-                  }
-                ]
-              },
-              {
-                "type": "basic",
-                "from": {
-                  "key_code": "9"
-                },
-                "to": [
-                  {
-                    "key_code": "9",
-                    "modifiers": [
-                      "left_command"
-                    ]
-                  }
-                ],
-                "conditions": [
-                  {
-                    "type": "variable_if",
-                    "name": "symbol-layer",
-                    "value": 1
-                  }
-                ]
-              },
-              {
-                "type": "basic",
-                "from": {
-                  "key_code": "0"
-                },
-                "to": [
-                  {
-                    "key_code": "0",
-                    "modifiers": [
-                      "left_command"
-                    ]
-                  }
-                ],
-                "conditions": [
-                  {
-                    "type": "variable_if",
-                    "name": "symbol-layer",
-                    "value": 1
-                  }
-                ]
-              },
-              {
-                "type": "basic",
-                "from": {
-                  "key_code": "spacebar"
-                },
-                "to": [
-                  {
-                    "key_code": "spacebar",
-                    "modifiers": [
-                      "left_command"
-                    ]
-                  }
-                ],
-                "conditions": [
-                  {
-                    "type": "variable_if",
-                    "name": "symbol-layer",
-                    "value": 1
                   }
                 ]
               }

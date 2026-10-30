@@ -14,12 +14,12 @@ import {
 
 // Symbol layer while Right Cmd is held. [key, shifted]
 const symbols: Record<string, [ToKeyParam, boolean]> = {
-  // top row: ! @ # $ %   ^ & * => (o, below) and p is blocked
+  // top row: ! @ # $ %   ^ & * (o is Cmd+O) => (p, below)
   q: [1, true], w: [2, true], e: [3, true], r: [4, true], t: [5, true],
   y: [6, true], u: [7, true], i: [8, true],
-  // home row: { ( [ = -   _ + ] ) }
+  // home row: { ( [ = -   _ + ] ) } :
   a: ['[', true], s: [9, true], d: ['[', false], f: ['=', false], g: ['-', false],
-  h: ['-', true], j: ['=', true], k: [']', false], l: [0, true], ';': [']', true],
+  h: ['-', true], j: ['=', true], k: [']', false], l: [0, true], ';': [']', true], "'": [';', true],
   // bottom row: | ` " ' ~   ? < / > \
   z: ['\\', true], x: ['`', false], c: ["'", true], v: ["'", false], b: ['`', true],
   n: ['/', true], m: [',', true], ',': ['/', false], '.': ['.', true], '/': ['\\', false],
@@ -64,25 +64,23 @@ writeToProfile(process.argv.includes('--dry-run') ? '--dry-run' : 'Default profi
     map('caps_lock', null, 'any').to('left_control').toIfAlone('escape'),
   ]),
 
-  // layer() refuses modifier keys, so Right Cmd sets the variable itself.
-  // Tapped alone it sends Backspace; held modifiers pass through (Option + tap deletes a word).
-  rule('Hold Right Cmd for the symbol layer, tap for Backspace').manipulators([
+  // Right Cmd stays a real Cmd while held, so every key without a symbol (and mouse or
+  // trackpad clicks) acts as Cmd + that key. Tapped alone it sends Backspace; held
+  // modifiers pass through (Option + tap deletes a word). The short timeout keeps a
+  // Cmd+click from also sending Backspace, since Karabiner doesn't see trackpad clicks.
+  rule('Right Cmd: tap for Backspace').manipulators([
     map('right_command', null, 'any')
-      .toVar('symbol-layer', 1)
-      .toAfterKeyUp(toSetVar('symbol-layer', 0))
-      .toIfAlone('delete_or_backspace'),
+      .to('right_command')
+      .toIfAlone('delete_or_backspace')
+      .parameters({ 'basic.to_if_alone_timeout_milliseconds': 250 }),
   ]),
 
-  rule('Symbol layer', ifVar('symbol-layer', 1)).manipulators([
+  // Karabiner lifts the mandatory Right Cmd while it sends each symbol.
+  rule('Symbol layer (Right Cmd + key)').manipulators([
     ...Object.entries(symbols).map(([from, [key, shifted]]) =>
-      map(from as FromKeyParam).to(toKey(key, shifted ? 'left_shift' : undefined)),
+      map(from as FromKeyParam, 'right_command').to(toKey(key, shifted ? 'left_shift' : undefined)),
     ),
-    map('o').to('=').to('.', 'left_shift'), // =>
-    map('p').toNone(), // free slot
-
-    // Keep Right Cmd + number and Right Cmd + Space as Cmd shortcuts for Raycast.
-    ...([1, 2, 3, 4, 5, 6, 7, 8, 9, 0] as const).map((n) => map(n).to(n, 'left_command')),
-    map('spacebar').to('spacebar', 'left_command'),
+    map('p', 'right_command').to('=').to('.', 'left_shift'), // =>
   ]),
 
   // Only plain Tab: Cmd+Tab, Ctrl+Tab and Shift+Tab pass through untouched.

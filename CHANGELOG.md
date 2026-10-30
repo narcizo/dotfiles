@@ -2,6 +2,21 @@
 
 Changes Claude made to shell and terminal config, newest first. Each entry lists what changed, where the backup is, and how to undo it. Entries before the move to this repo refer to the files' old locations.
 
+## 2026-10-29 - Karabiner: `=>` moves to Right Cmd + `p`
+
+- `karabiner-ts/index.ts`: Right Cmd + `p` types `=>`. Right Cmd + `o` is Cmd+O again, and Right Cmd + `p` no longer sends Cmd+P (Left Cmd + `p` still does).
+- Undo: change `'p'` back to `'o'` in the `=>` mapping, then `bun run build`.
+
+## 2026-10-25 - Karabiner: Right Cmd stays Cmd outside the symbols
+
+- `karabiner-ts/index.ts`: Right Cmd now sends a real Cmd while held, and each symbol is a Right Cmd + key rule. Keys without a symbol, and mouse or trackpad clicks, act as Cmd + that key (Right Cmd + `p` is Cmd+P again). The explicit number row and Space mappings are gone because they now pass through on their own. Tapping alone still sends Backspace, but only if released within 250 ms, so a Cmd+click doesn't also delete a character.
+- Undo: revert the commit that adds this entry, then `bun run build`.
+
+## 2026-10-24 - Karabiner: `:` on the symbol layer
+
+- `karabiner-ts/index.ts`: Right Cmd + `'` types `:`, so Go's `:=` stays on one layer (`'` then `f`).
+- Undo: remove the `"'"` entry from `symbols`, then `bun run build`.
+
 ## 2026-10-24 - Karabiner: rules in karabiner.ts, symbol and number layers
 
 - New folder `karabiner-ts/` (not a Stow package): `index.ts` builds the Karabiner rules with [karabiner.ts](https://github.com/evan-liu/karabiner.ts) 1.38, run with `bun run build`. It replaces only `complex_modifications` in the profile; `devices` (the Galaxy80 remap and the ignored Logitech device) and `virtual_hid_keyboard` were checked and are unchanged.
