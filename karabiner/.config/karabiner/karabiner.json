@@ -211,8 +211,31 @@
             ]
           },
           {
-            "description": "Right Cmd: tap for Backspace",
+            "description": "Right Cmd: tap for Backspace, tap then hold to repeat it",
             "manipulators": [
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "right_command",
+                  "modifiers": {
+                    "optional": [
+                      "any"
+                    ]
+                  }
+                },
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "right_command tapped",
+                    "value": 1
+                  }
+                ],
+                "to": [
+                  {
+                    "key_code": "delete_or_backspace"
+                  }
+                ]
+              },
               {
                 "type": "basic",
                 "from": {
@@ -231,10 +254,35 @@
                 "to_if_alone": [
                   {
                     "key_code": "delete_or_backspace"
+                  },
+                  {
+                    "set_variable": {
+                      "name": "right_command tapped",
+                      "value": 1
+                    }
                   }
                 ],
+                "to_delayed_action": {
+                  "to_if_invoked": [
+                    {
+                      "set_variable": {
+                        "name": "right_command tapped",
+                        "value": 0
+                      }
+                    }
+                  ],
+                  "to_if_canceled": [
+                    {
+                      "set_variable": {
+                        "name": "right_command tapped",
+                        "value": 0
+                      }
+                    }
+                  ]
+                },
                 "parameters": {
-                  "basic.to_if_alone_timeout_milliseconds": 250
+                  "basic.to_if_alone_timeout_milliseconds": 250,
+                  "basic.to_delayed_action_delay_milliseconds": 300
                 }
               }
             ]
@@ -657,7 +705,10 @@
                 },
                 "to": [
                   {
-                    "key_code": "quote"
+                    "key_code": "semicolon",
+                    "modifiers": [
+                      "left_shift"
+                    ]
                   }
                 ]
               },
@@ -1528,6 +1579,43 @@
                     "type": "variable_if",
                     "name": "number-layer",
                     "value": 1
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "description": "Swap plain ; and '",
+            "manipulators": [
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "semicolon",
+                  "modifiers": {
+                    "optional": [
+                      "caps_lock"
+                    ]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "quote"
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "quote",
+                  "modifiers": {
+                    "optional": [
+                      "caps_lock"
+                    ]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "semicolon"
                   }
                 ]
               }

@@ -2,6 +2,16 @@
 
 Changes Claude made to shell and terminal config, newest first. Each entry lists what changed, where the backup is, and how to undo it. Entries before the move to this repo refer to the files' old locations.
 
+## 2026-10-30 - Karabiner: plain `;` and `'` swapped, `:` on Right Cmd + `v`
+
+- `karabiner-ts/index.ts`: a plain press of the home-row `;` key types `'` (the accent dead key on Brazilian - Pro), and the outer `'` key types `;`. Shift and the layers still use the physical keys. Right Cmd + `v` types `:` instead of `'`, and Right Cmd + `'` also still types `:` for now.
+- Undo: delete the `Swap plain ; and '` rule and set `v` back to `["'", false]` in `symbols`, then `bun run build`.
+
+## 2026-10-30 - Karabiner: tap then hold Right Cmd to repeat Backspace
+
+- `karabiner-ts/index.ts`: tap Right Cmd, then press it again and hold to hold Backspace down, so key repeat keeps deleting. The second press must come within 300 ms of the first one. Held modifiers still pass through, so Option + tap-then-hold deletes word by word. A single tap and a plain hold work as before.
+- Undo: revert the commit that adds this entry, then `bun run build`.
+
 ## 2026-10-29 - zsh: Go from Homebrew instead of Webi
 
 - `zsh/.zshrc`: the Webi `envman` loader is replaced by `export PATH="$HOME/go/bin:$PATH"`. Go 1.27.3 now comes from Homebrew (`/opt/homebrew/bin/go`), and `Brewfile` has `brew "go"`. `~/go` was a Webi symlink to `~/.local/opt/go-bin-v1.27.3`, so removing Webi also removed `gopls` and `bootdev`. `~/go` is now a plain folder, and both were reinstalled with `go install`.

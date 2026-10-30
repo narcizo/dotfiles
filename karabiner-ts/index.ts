@@ -17,11 +17,11 @@ const symbols: Record<string, [ToKeyParam, boolean]> = {
   // top row: ! @ # $ %   ^ & * (o is Cmd+O) => (p, below)
   q: [1, true], w: [2, true], e: [3, true], r: [4, true], t: [5, true],
   y: [6, true], u: [7, true], i: [8, true],
-  // home row: { ( [ = -   _ + ] ) } :
+  // home row: { ( [ = -   _ + ] ) } :  (: on ' too while getting used to v)
   a: ['[', true], s: [9, true], d: ['[', false], f: ['=', false], g: ['-', false],
   h: ['-', true], j: ['=', true], k: [']', false], l: [0, true], ';': [']', true], "'": [';', true],
-  // bottom row: | ` " ' ~   ? < / > \
-  z: ['\\', true], x: ['`', false], c: ["'", true], v: ["'", false], b: ['`', true],
+  // bottom row: | ` " : ~   ? < / > \
+  z: ['\\', true], x: ['`', false], c: ["'", true], v: [';', true], b: ['`', true],
   n: ['/', true], m: [',', true], ',': ['/', false], '.': ['.', true], '/': ['\\', false],
 }
 
@@ -68,11 +68,22 @@ writeToProfile(process.argv.includes('--dry-run') ? '--dry-run' : 'Default profi
   // trackpad clicks) acts as Cmd + that key. Tapped alone it sends Backspace; held
   // modifiers pass through (Option + tap deletes a word). The short timeout keeps a
   // Cmd+click from also sending Backspace, since Karabiner doesn't see trackpad clicks.
-  rule('Right Cmd: tap for Backspace').manipulators([
+  // Tap then press again and hold: the second press holds Backspace, so macOS key repeat
+  // keeps deleting. The tap flag clears 300 ms after the first press (the delayed-action
+  // timer starts on key down, not release).
+  rule('Right Cmd: tap for Backspace, tap then hold to repeat it').manipulators([
+    map('right_command', null, 'any')
+      .condition(ifVar('right_command tapped', 1))
+      .to('delete_or_backspace'),
     map('right_command', null, 'any')
       .to('right_command')
       .toIfAlone('delete_or_backspace')
-      .parameters({ 'basic.to_if_alone_timeout_milliseconds': 250 }),
+      .toIfAlone(toSetVar('right_command tapped', 1))
+      .toDelayedAction(toSetVar('right_command tapped', 0), toSetVar('right_command tapped', 0))
+      .parameters({
+        'basic.to_if_alone_timeout_milliseconds': 250,
+        'basic.to_delayed_action_delay_milliseconds': 300,
+      }),
   ]),
 
   // Karabiner lifts the mandatory Right Cmd while it sends each symbol.
@@ -87,5 +98,13 @@ writeToProfile(process.argv.includes('--dry-run') ? '--dry-run' : 'Default profi
   layer('tab', 'number-layer').manipulators([
     ...Object.entries(numbers).map(([from, to]) => map(from as FromKeyParam).to(to)),
     ...numberLayerBlocked.map((k) => map(k as FromKeyParam).toNone()),
+  ]),
+
+  // ' is the accent dead key on Brazilian - Pro, so it gets the home-row pinky. Only plain
+  // presses swap; Shift and the layers still see the physical keys. Last so the number layer
+  // blocks these keys first.
+  rule('Swap plain ; and \'').manipulators([
+    map(';', null, 'caps_lock').to("'"),
+    map("'", null, 'caps_lock').to(';'),
   ]),
 ])
