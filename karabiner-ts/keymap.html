@@ -1,0 +1,287 @@
+<title>Karabiner Keymap</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+/* Layout: one column of keyboard plates, one per layer, then a table of taps and combos. */
+:root {
+  --bg: #f2f3f6;
+  --plate: #e6e8ee;
+  --key: #fbfbfd;
+  --key-border: #cfd4de;
+  --fg: #1a1e27;
+  --muted: #5d6474;
+  --dim: #9aa1b0;
+  --accent: #2456c7;
+  --accent-bg: #e1e9fc;
+  --accent-border: #9db4ee;
+  --held: #1a1e27;
+  --hatch: #d9dde5;
+  --font-ui: "IBM Plex Sans", system-ui, -apple-system, sans-serif;
+  --font-key: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #111317; --plate: #171a20; --key: #1f232b; --key-border: #2d323d;
+    --fg: #e7eaf0; --muted: #a0a7b5; --dim: #5f6675;
+    --accent: #84aeff; --accent-bg: #142748; --accent-border: #2f5296;
+    --held: #e7eaf0; --hatch: #262a33;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #111317; --plate: #171a20; --key: #1f232b; --key-border: #2d323d;
+  --fg: #e7eaf0; --muted: #a0a7b5; --dim: #5f6675;
+  --accent: #84aeff; --accent-bg: #142748; --accent-border: #2f5296;
+  --held: #e7eaf0; --hatch: #262a33;
+  color-scheme: dark;
+}
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-ui);
+  font-size: 15px;
+  line-height: 1.5;
+}
+.page {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding-block: 40px 64px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  display: grid;
+  gap: 40px;
+}
+header { display: grid; gap: 10px; }
+h1 { font-size: 28px; font-weight: 600; margin: 0; letter-spacing: -0.01em; text-wrap: balance; }
+header p { margin: 0; color: var(--muted); max-width: 65ch; }
+code { font-family: var(--font-key); font-size: 0.92em; }
+
+.legend { display: flex; flex-wrap: wrap; gap: 8px 20px; font-size: 13px; color: var(--muted); }
+.legend span { display: inline-flex; align-items: center; gap: 8px; }
+.swatch { width: 16px; height: 16px; border-radius: 4px; border: 1px solid var(--key-border); background: var(--key); }
+.swatch.changed { background: var(--accent-bg); border-color: var(--accent-border); }
+.swatch.held { border: 2px solid var(--held); }
+.swatch.blocked { background: repeating-linear-gradient(135deg, var(--hatch) 0 3px, transparent 3px 6px); }
+.swatch.dim { opacity: 0.45; }
+
+section.layer { display: grid; gap: 14px; }
+.layer-head { display: grid; gap: 4px; }
+h2 { font-size: 18px; font-weight: 600; margin: 0; text-wrap: balance; }
+.layer-head p { margin: 0; color: var(--muted); max-width: 70ch; font-size: 14px; }
+
+.scroll { overflow-x: auto; border-radius: 14px; }
+.board {
+  min-width: 780px;
+  background: var(--plate);
+  border-radius: 14px;
+  padding: 14px;
+  display: grid;
+  gap: 6px;
+}
+.row { display: grid; grid-template-columns: repeat(60, 1fr); gap: 6px; }
+.row.esc-row { margin-bottom: 6px; }
+.key {
+  position: relative;
+  min-width: 0;
+  height: 58px;
+  border-radius: 8px;
+  background: var(--key);
+  border: 1px solid var(--key-border);
+  display: grid;
+  place-content: center;
+  text-align: center;
+  font-family: var(--font-key);
+  padding: 4px;
+  overflow: hidden;
+}
+.key .main { font-size: 18px; font-weight: 500; line-height: 1.15; }
+.key .main.word { font-size: 13px; font-family: var(--font-ui); font-weight: 500; }
+.key .sub { font-family: var(--font-ui); font-size: 10.5px; line-height: 1.25; color: inherit; opacity: 0.85; }
+.key .corner { position: absolute; left: 6px; bottom: 3px; font-size: 10.5px; color: var(--muted); }
+.key.dim { color: var(--dim); }
+.key.pass .main { font-size: 13px; color: var(--muted); }
+.key.changed { background: var(--accent-bg); border-color: var(--accent-border); color: var(--accent); }
+.key.changed .corner { color: var(--accent); opacity: 0.75; }
+.key.held { border: 2px solid var(--held); color: var(--fg); background: var(--key); }
+.key.blocked { background: repeating-linear-gradient(135deg, var(--hatch) 0 3px, transparent 3px 7px), var(--key); color: var(--dim); }
+
+.combos { display: grid; gap: 14px; }
+.table-wrap { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: 14px; }
+th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--key-border); vertical-align: top; }
+th { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); }
+td:first-child { white-space: nowrap; font-family: var(--font-key); font-size: 13px; }
+kbd {
+  font-family: var(--font-key); font-size: 12px;
+  padding: 1px 6px; border-radius: 5px;
+  border: 1px solid var(--key-border); background: var(--key);
+}
+footer { font-size: 13px; color: var(--muted); display: grid; gap: 6px; }
+footer p { margin: 0; max-width: 75ch; }
+</style>
+
+<div class="page">
+  <header>
+    <h1>Karabiner Keymap</h1>
+    <p>Every remap from <code>karabiner-ts/index.ts</code>, one plate per layer. Keys keep their US positions; the small corner letter is the physical key when a layer moves something.</p>
+    <div class="legend">
+      <span><i class="swatch changed"></i>Changed by Karabiner</span>
+      <span><i class="swatch held"></i>Key being held</span>
+      <span><i class="swatch"></i>Unchanged</span>
+      <span><i class="swatch dim"></i>Passes through as Cmd + key</span>
+      <span><i class="swatch blocked"></i>Blocked, types nothing</span>
+    </div>
+  </header>
+
+  <section class="layer">
+    <div class="layer-head">
+      <h2>Base layer</h2>
+      <p>The home-row pinky types <code>'</code>, the accent dead key on Brazilian - Pro (<code>'</code> then <code>e</code> is é, <code>'</code> then <code>c</code> is ç). Only plain presses swap; Shift and the layers still use the physical keys.</p>
+    </div>
+    <div class="scroll"><div class="board" data-layer="base"></div></div>
+  </section>
+
+  <section class="layer">
+    <div class="layer-head">
+      <h2>Hold Right Cmd: symbols</h2>
+      <p>Right Cmd stays a real Cmd, so keys without a symbol, and mouse clicks, act as Cmd + that key. <code>:</code> is on both <code>v</code> and <code>'</code> while you get used to <code>v</code>.</p>
+    </div>
+    <div class="scroll"><div class="board" data-layer="symbols"></div></div>
+  </section>
+
+  <section class="layer">
+    <div class="layer-head">
+      <h2>Hold Tab: numbers</h2>
+      <p>A numpad under the right hand. Every other letter and punctuation key is blocked, so a stray press types nothing. Only plain Tab starts the layer; Cmd+Tab, Ctrl+Tab and Shift+Tab are unchanged.</p>
+    </div>
+    <div class="scroll"><div class="board" data-layer="numbers"></div></div>
+  </section>
+
+  <section class="layer">
+    <div class="layer-head">
+      <h2>Hold Caps (Ctrl): arrows</h2>
+      <p>Caps is Ctrl while held. Ctrl + <code>h j k l</code> are arrow keys, and other modifiers carry over, so adding Shift selects. Every other Ctrl shortcut is unchanged.</p>
+    </div>
+    <div class="scroll"><div class="board" data-layer="ctrl"></div></div>
+  </section>
+
+  <section class="combos">
+    <div class="layer-head">
+      <h2>Taps and combos</h2>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Keys</th><th>Result</th></tr></thead>
+        <tbody>
+          <tr><td>Tap <kbd>Right Cmd</kbd></td><td>Backspace, if released within 250 ms. A slower release (a Cmd+click) sends nothing.</td></tr>
+          <tr><td>Tap, then hold <kbd>Right Cmd</kbd></td><td>Holds Backspace down, so it repeats. The second press must come within 300 ms of the first.</td></tr>
+          <tr><td><kbd>Opt</kbd> + tap <kbd>Right Cmd</kbd></td><td>Deletes a word. Tap then hold repeats it.</td></tr>
+          <tr><td><kbd>Cmd</kbd> + tap <kbd>Right Cmd</kbd></td><td>Deletes to the start of the line.</td></tr>
+          <tr><td>Tap <kbd>Caps</kbd></td><td>Esc. Held, Caps is Ctrl.</td></tr>
+          <tr><td><kbd>Caps</kbd> + <kbd>Right Shift</kbd></td><td>Backspace.</td></tr>
+          <tr><td>Tap <kbd>Right Shift</kbd> twice</td><td>Caps Lock.</td></tr>
+          <tr><td>Tap <kbd>Tab</kbd></td><td>Tab, sent on release. Holding it doesn't repeat.</td></tr>
+          <tr><td><kbd>Esc</kbd> key</td><td>Forward Delete.</td></tr>
+          <tr><td><kbd>Right Cmd</kbd> + <kbd>p</kbd></td><td>Types <code>=&gt;</code> in one press.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <footer>
+    <p>Galaxy80 only (set per device): the <kbd>fn</kbd> key sends Right Option, and Right Ctrl sends fn. The Logitech receiver is ignored by Karabiner.</p>
+    <p>Edit <code>karabiner-ts/index.ts</code> and run <code>bun run build</code> to change any of this, then update <code>karabiner-ts/keymap.html</code> to match.</p>
+  </footer>
+</div>
+
+<script>
+// Physical layout in quarter units: [id, label, width]. Every row is 15 units.
+const ROWS = [
+  [["esc", "Esc", 1]],
+  [["`","`",1],["1","1",1],["2","2",1],["3","3",1],["4","4",1],["5","5",1],["6","6",1],["7","7",1],["8","8",1],["9","9",1],["0","0",1],["-","-",1],["=","=",1],["delete","Delete",2]],
+  [["tab","Tab",1.5],["q","q",1],["w","w",1],["e","e",1],["r","r",1],["t","t",1],["y","y",1],["u","u",1],["i","i",1],["o","o",1],["p","p",1],["[","[",1],["]","]",1],["\\","\\",1.5]],
+  [["caps","Caps",1.75],["a","a",1],["s","s",1],["d","d",1],["f","f",1],["g","g",1],["h","h",1],["j","j",1],["k","k",1],["l","l",1],[";",";",1],["'","'",1],["return","Return",2.25]],
+  [["lshift","Shift",2.25],["z","z",1],["x","x",1],["c","c",1],["v","v",1],["b","b",1],["n","n",1],["m","m",1],[",",",",1],[".",".",1],["/","/",1],["rshift","Shift",2.75]],
+  [["lctrl","Ctrl",1.25],["lopt","Opt",1.25],["lcmd","Cmd",1.25],["space","Space",8.75],["rcmd","Right Cmd",1.25],["ropt","Opt",1.25]],
+];
+const CHAR_KEYS = new Set("`1234567890-=qwertyuiop[]\\asdfghjkl;'zxcvbnm,./".split(""));
+
+// Per layer: overrides { id: { main, sub, state, corner } } and what unlisted keys look like.
+const LAYERS = {
+  base: {
+    rest: () => ({ state: "" }),
+    keys: {
+      esc: { main: "⌦", sub: "Fwd Delete", state: "changed" },
+      tab: { main: "Tab", sub: "tap Tab · hold 0–9", state: "changed" },
+      caps: { main: "Caps", sub: "tap Esc · hold Ctrl", state: "changed" },
+      ";": { main: "'", corner: ";", state: "changed" },
+      "'": { main: ";", corner: "'", state: "changed" },
+      rshift: { main: "Shift", sub: "tap twice: Caps Lock", state: "changed" },
+      rcmd: { main: "Right Cmd", sub: "tap ⌫ · hold symbols", state: "changed" },
+    },
+  },
+  symbols: {
+    rest: (id, label) => CHAR_KEYS.has(id)
+      ? { main: "⌘" + label.toUpperCase(), state: "dim pass" }
+      : id === "space" ? { main: "⌘ Space", state: "dim pass" } : { state: "dim" },
+    keys: {
+      rcmd: { main: "Right Cmd", state: "held" },
+      q: "!", w: "@", e: "#", r: "$", t: "%", u: "&", i: "*", o: "^", p: "=>",
+      a: "{", s: "(", d: "[", f: "=", g: "-", h: "_", j: "+", k: "]", l: ")", ";": "}", "'": ":",
+      z: "|", x: "`", c: "\"", v: ":", b: "~", n: "?", m: "<", ",": "/", ".": ">", "/": "\\",
+    },
+  },
+  numbers: {
+    rest: (id) => "qwertyuiopasdfghjkl;zxcvbnm,./'[]\\`-=".includes(id) && id.length === 1
+      ? { main: "", state: "blocked" } : { state: "dim" },
+    keys: {
+      tab: { main: "Tab", state: "held" },
+      u: "7", i: "8", o: "9", j: "4", k: "5", l: "6", m: "1", ",": "2", ".": "3",
+      space: { main: "0", state: "changed" },
+    },
+  },
+  ctrl: {
+    rest: () => ({ state: "dim" }),
+    keys: {
+      caps: { main: "Ctrl", sub: "Caps held", state: "held" },
+      h: "←", j: "↓", k: "↑", l: "→",
+      rshift: { main: "⌫", sub: "Caps + Right Shift", state: "changed" },
+    },
+  },
+};
+
+function keySpec(layer, id, label) {
+  const o = layer.keys[id];
+  if (o === undefined) return { main: label, ...layer.rest(id, label) };
+  if (typeof o === "string") return { main: o, corner: CHAR_KEYS.has(id) ? id : "", state: "changed" };
+  return { main: label, ...o };
+}
+
+function el(tag, cls, text) {
+  const n = document.createElement(tag);
+  if (cls) n.className = cls;
+  if (text !== undefined) n.textContent = text;
+  return n;
+}
+
+document.querySelectorAll(".board").forEach((board) => {
+  const layer = LAYERS[board.dataset.layer];
+  ROWS.forEach((row, r) => {
+    const rowEl = el("div", r === 0 ? "row esc-row" : "row");
+    row.forEach(([id, label, w]) => {
+      const s = keySpec(layer, id, label);
+      const k = el("div", ("key " + (s.state || "")).trim());
+      k.style.gridColumn = "span " + Math.round(w * 4);
+      if (s.main) k.append(el("span", s.main.length > 3 && !s.main.startsWith("⌘") ? "main word" : "main", s.main));
+      if (s.sub) k.append(el("span", "sub", s.sub));
+      if (s.corner) k.append(el("span", "corner", s.corner));
+      k.setAttribute("aria-label", [label, s.main, s.sub].filter(Boolean).join(", "));
+      rowEl.append(k);
+    });
+    board.append(rowEl);
+  });
+});
+</script>

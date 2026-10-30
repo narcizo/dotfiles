@@ -29,6 +29,7 @@ Check the tool still loads after every change:
 
 - zjstatus widget commands (`zellij/.config/zellij/scripts/zjstatus-sys.sh`) must return instantly. zjstatus starts new runs before slow ones finish; a `top -l 2` CPU widget once piled up dozens of processes and pushed the load average past 200.
 - zjstatus is pinned to v0.21.0 for Zellij 0.42.x. zjstatus >= 0.25 needs Zellij >= 0.45: upgrade both together.
+- After changing Karabiner rules, update `karabiner-ts/keymap.html` to match (it's a hand-kept picture of `index.ts`, not generated) and republish it to https://claude.ai/artifact/23JDGupfGouckr8tGrwxAe with the Artifact tool.
 - Karabiner is linked as a whole folder because it replaces `karabiner.json` on save, which would break a file symlink. `automatic_backups/` is gitignored.
 - Ghostty reads `~/.config/ghostty/config`. A second config in `~/Library/Application Support/com.mitchellh.ghostty/` would also load, after this one.
 - Starship styles reset the background, so modules inside the gray pill need `bg:#3c3836` in their own style.

@@ -388,25 +388,6 @@
               {
                 "type": "basic",
                 "from": {
-                  "key_code": "y",
-                  "modifiers": {
-                    "mandatory": [
-                      "right_command"
-                    ]
-                  }
-                },
-                "to": [
-                  {
-                    "key_code": "6",
-                    "modifiers": [
-                      "left_shift"
-                    ]
-                  }
-                ]
-              },
-              {
-                "type": "basic",
-                "from": {
                   "key_code": "u",
                   "modifiers": {
                     "mandatory": [
@@ -436,6 +417,25 @@
                 "to": [
                   {
                     "key_code": "8",
+                    "modifiers": [
+                      "left_shift"
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "o",
+                  "modifiers": {
+                    "mandatory": [
+                      "right_command"
+                    ]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "6",
                     "modifiers": [
                       "left_shift"
                     ]

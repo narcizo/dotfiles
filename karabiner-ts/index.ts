@@ -14,9 +14,9 @@ import {
 
 // Symbol layer while Right Cmd is held. [key, shifted]
 const symbols: Record<string, [ToKeyParam, boolean]> = {
-  // top row: ! @ # $ %   ^ & * (o is Cmd+O) => (p, below)
+  // top row: ! @ # $ %   & * ^ => (y is Cmd+Y; => on p, below)
   q: [1, true], w: [2, true], e: [3, true], r: [4, true], t: [5, true],
-  y: [6, true], u: [7, true], i: [8, true],
+  u: [7, true], i: [8, true], o: [6, true],
   // home row: { ( [ = -   _ + ] ) } :  (: on ' too while getting used to v)
   a: ['[', true], s: [9, true], d: ['[', false], f: ['=', false], g: ['-', false],
   h: ['-', true], j: ['=', true], k: [']', false], l: [0, true], ';': [']', true], "'": [';', true],

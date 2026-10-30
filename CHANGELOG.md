@@ -2,6 +2,11 @@
 
 Changes Claude made to shell and terminal config, newest first. Each entry lists what changed, where the backup is, and how to undo it. Entries before the move to this repo refer to the files' old locations.
 
+## 2026-10-30 - Karabiner: `^` moves to Right Cmd + `o`
+
+- `karabiner-ts/index.ts`: Right Cmd + `o` types `^`, and Right Cmd + `y` is Cmd+Y again. Right Cmd + `o` no longer sends Cmd+O (Left Cmd + `o` still does).
+- Undo: change `o: [6, true]` back to `y: [6, true]` in `symbols`, then `bun run build`.
+
 ## 2026-10-30 - Karabiner: plain `;` and `'` swapped, `:` on Right Cmd + `v`
 
 - `karabiner-ts/index.ts`: a plain press of the home-row `;` key types `'` (the accent dead key on Brazilian - Pro), and the outer `'` key types `;`. Shift and the layers still use the physical keys. Right Cmd + `v` types `:` instead of `'`, and Right Cmd + `'` also still types `:` for now.
