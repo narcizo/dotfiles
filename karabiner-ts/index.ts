@@ -17,12 +17,12 @@ const symbols: Record<string, [ToKeyParam, boolean]> = {
   // top row: ! @ # $ %   & * ^ => (y is Cmd+Y; => on p, below)
   q: [1, true], w: [2, true], e: [3, true], r: [4, true], t: [5, true],
   u: [7, true], i: [8, true], o: [6, true],
-  // home row: { ( [ = -   _ + ] ) } :  (: on ' too while getting used to v)
+  // home row: { ( [ = -   _ + ] ) } :  (: on ' too while getting used to b)
   a: ['[', true], s: [9, true], d: ['[', false], f: ['=', false], g: ['-', false],
   h: ['-', true], j: ['=', true], k: [']', false], l: [0, true], ';': [']', true], "'": [';', true],
-  // bottom row: | ` " : ~   ? < / > \
-  z: ['\\', true], x: ['`', false], c: ["'", true], v: [';', true], b: ['`', true],
-  n: ['/', true], m: [',', true], ',': ['/', false], '.': ['.', true], '/': ['\\', false],
+  // bottom row: | ` ç ~ :   ? " < > \  (ç and " below)
+  z: ['\\', true], x: ['`', false], v: ['`', true], b: [';', true],
+  n: ['/', true], ',': [',', true], '.': ['.', true], '/': ['\\', false],
 }
 
 // Number layer while Tab is held: a numpad under the right hand.
@@ -86,12 +86,32 @@ writeToProfile(process.argv.includes('--dry-run') ? '--dry-run' : 'Default profi
       }),
   ]),
 
+  // The left thumb's Return, mirroring Right Cmd's Backspace. Held modifiers pass through
+  // (Shift + tap is Shift+Return, a new line in chat apps).
+  rule('Left Cmd: tap for Return').manipulators([
+    map('left_command', null, 'any')
+      .to('left_command')
+      .toIfAlone('return_or_enter')
+      .parameters({ 'basic.to_if_alone_timeout_milliseconds': 250 }),
+  ]),
+
+  // Training wheels: the physical Delete and Return keys do nothing, so the thumbs take
+  // over. Delete this rule once the habit sticks (Esc got the same treatment for Caps).
+  rule('Disable the Delete and Return keys').manipulators([
+    map('delete_or_backspace', null, 'any').toNone(),
+    map('return_or_enter', null, 'any').toNone(),
+  ]),
+
   // Karabiner lifts the mandatory Right Cmd while it sends each symbol.
   rule('Symbol layer (Right Cmd + key)').manipulators([
     ...Object.entries(symbols).map(([from, [key, shifted]]) =>
       map(from as FromKeyParam, 'right_command').to(toKey(key, shifted ? 'left_shift' : undefined)),
     ),
     map('p', 'right_command').to('=').to('.', 'left_shift'), // =>
+    map('c', 'right_command').to('c', 'left_option'), // ç on Brazilian - Pro
+    // " is an accent key on Brazilian - Pro (" then a is ä); the space makes it type " at once.
+    // ` ~ ^ stay accent keys on purpose, for à ã â.
+    map('m', 'right_command').to("'", 'left_shift').to('spacebar'),
   ]),
 
   // Only plain Tab: Cmd+Tab, Ctrl+Tab and Shift+Tab pass through untouched.

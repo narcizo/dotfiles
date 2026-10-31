@@ -139,7 +139,7 @@ footer p { margin: 0; max-width: 75ch; }
   <section class="layer">
     <div class="layer-head">
       <h2>Base layer</h2>
-      <p>The home-row pinky types <code>'</code>, the accent dead key on Brazilian - Pro (<code>'</code> then <code>e</code> is é, <code>'</code> then <code>c</code> is ç). Only plain presses swap; Shift and the layers still use the physical keys.</p>
+      <p>The home-row pinky types <code>'</code>, the accent dead key on Brazilian - Pro (<code>'</code> then <code>e</code> is é, <code>'</code> then <code>c</code> is ç). Only plain presses swap; Shift and the layers still use the physical keys. The thumbs handle Backspace (tap Right Cmd) and Return (tap Left Cmd), and the Delete and Return keys are off while that sinks in.</p>
     </div>
     <div class="scroll"><div class="board" data-layer="base"></div></div>
   </section>
@@ -147,7 +147,7 @@ footer p { margin: 0; max-width: 75ch; }
   <section class="layer">
     <div class="layer-head">
       <h2>Hold Right Cmd: symbols</h2>
-      <p>Right Cmd stays a real Cmd, so keys without a symbol, and mouse clicks, act as Cmd + that key. <code>:</code> is on both <code>v</code> and <code>'</code> while you get used to <code>v</code>.</p>
+      <p>Right Cmd stays a real Cmd, so keys without a symbol, and mouse clicks, act as Cmd + that key. <code>:</code> is on both <code>v</code> and <code>'</code> while you get used to <code>b</code>.</p>
     </div>
     <div class="scroll"><div class="board" data-layer="symbols"></div></div>
   </section>
@@ -180,12 +180,16 @@ footer p { margin: 0; max-width: 75ch; }
           <tr><td>Tap, then hold <kbd>Right Cmd</kbd></td><td>Holds Backspace down, so it repeats. The second press must come within 300 ms of the first.</td></tr>
           <tr><td><kbd>Opt</kbd> + tap <kbd>Right Cmd</kbd></td><td>Deletes a word. Tap then hold repeats it.</td></tr>
           <tr><td><kbd>Cmd</kbd> + tap <kbd>Right Cmd</kbd></td><td>Deletes to the start of the line.</td></tr>
+          <tr><td>Tap <kbd>Left Cmd</kbd></td><td>Return, if released within 250 ms. Shift + tap is Shift+Return (a new line in chat apps).</td></tr>
+          <tr><td><kbd>Delete</kbd> and <kbd>Return</kbd> keys</td><td>Off for now, so the thumbs take over. They come back when the training rule in <code>index.ts</code> is deleted.</td></tr>
           <tr><td>Tap <kbd>Caps</kbd></td><td>Esc. Held, Caps is Ctrl.</td></tr>
           <tr><td><kbd>Caps</kbd> + <kbd>Right Shift</kbd></td><td>Backspace.</td></tr>
           <tr><td>Tap <kbd>Right Shift</kbd> twice</td><td>Caps Lock.</td></tr>
           <tr><td>Tap <kbd>Tab</kbd></td><td>Tab, sent on release. Holding it doesn't repeat.</td></tr>
           <tr><td><kbd>Esc</kbd> key</td><td>Forward Delete.</td></tr>
           <tr><td><kbd>Right Cmd</kbd> + <kbd>p</kbd></td><td>Types <code>=&gt;</code> in one press.</td></tr>
+          <tr><td><kbd>Right Cmd</kbd> + <kbd>m</kbd></td><td>Types a plain <code>"</code> at once. Karabiner adds a Space after it, because <code>"</code> is an accent key on Brazilian - Pro.</td></tr>
+          <tr><td><kbd>Right Cmd</kbd> + <kbd>x</kbd> <kbd>v</kbd> <kbd>o</kbd></td><td><code>`</code> <code>~</code> <code>^</code> stay accent keys: follow with a vowel for à ã â ê, or Space for the plain character. The base-layer <code>'</code> works the same way (é, ç).</td></tr>
         </tbody>
       </table>
     </div>
@@ -221,6 +225,9 @@ const LAYERS = {
       "'": { main: ";", corner: "'", state: "changed" },
       rshift: { main: "Shift", sub: "tap twice: Caps Lock", state: "changed" },
       rcmd: { main: "Right Cmd", sub: "tap ⌫ · hold symbols", state: "changed" },
+      lcmd: { main: "Cmd", sub: "tap Return", state: "changed" },
+      delete: { main: "Delete", sub: "off: tap Right Cmd", state: "blocked" },
+      return: { main: "Return", sub: "off: tap Left Cmd", state: "blocked" },
     },
   },
   symbols: {
@@ -231,7 +238,7 @@ const LAYERS = {
       rcmd: { main: "Right Cmd", state: "held" },
       q: "!", w: "@", e: "#", r: "$", t: "%", u: "&", i: "*", o: "^", p: "=>",
       a: "{", s: "(", d: "[", f: "=", g: "-", h: "_", j: "+", k: "]", l: ")", ";": "}", "'": ":",
-      z: "|", x: "`", c: "\"", v: ":", b: "~", n: "?", m: "<", ",": "/", ".": ">", "/": "\\",
+      z: "|", x: "`", c: "ç", v: "~", b: ":", n: "?", m: "\"", ",": "<", ".": ">", "/": "\\",
     },
   },
   numbers: {

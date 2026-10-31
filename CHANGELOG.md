@@ -2,6 +2,22 @@
 
 Changes Claude made to shell and terminal config, newest first. Each entry lists what changed, where the backup is, and how to undo it. Entries before the move to this repo refer to the files' old locations.
 
+## 2026-10-31 - Karabiner: `:` and `~` swap on the symbol layer
+
+- `karabiner-ts/index.ts`: Right Cmd + `b` types `:` and Right Cmd + `v` types `~`. Right Cmd + `'` still types `:` too.
+- Undo: swap the `v` and `b` entries in `symbols` back, then `bun run build`.
+
+## 2026-10-31 - Karabiner: tap Left Cmd for Return, Delete and Return keys off
+
+- `karabiner-ts/index.ts`: tapping Left Cmd alone (released within 250 ms) sends Return, and held modifiers pass through (Shift + tap is Shift+Return). Held, it's still Cmd.
+- The physical Delete (Backspace) and Return keys do nothing, with any modifier, until the thumbs take over. Backspace comes from tapping Right Cmd and Return from tapping Left Cmd.
+- Undo: delete the `Disable the Delete and Return keys` rule (or the `Left Cmd: tap for Return` rule), then `bun run build`.
+
+## 2026-10-30 - Karabiner: `ç`, `"`, `<` and `>` move on the symbol layer
+
+- `karabiner-ts/index.ts`: Right Cmd + `c` types `ç` (sent as Option+C), Right Cmd + `m` types a plain `"` (sent as `"` then Space, since `"` is an accent key on Brazilian - Pro), and `<` and `>` sit on Right Cmd + `,` and Right Cmd + `.`, matching their Shift positions. The layer no longer has `/` (it's on the base layer).
+- Undo: revert the commit that adds this entry, then `bun run build`.
+
 ## 2026-10-30 - Karabiner: `^` moves to Right Cmd + `o`
 
 - `karabiner-ts/index.ts`: Right Cmd + `o` types `^`, and Right Cmd + `y` is Cmd+Y again. Right Cmd + `o` no longer sends Cmd+O (Left Cmd + `o` still does).
