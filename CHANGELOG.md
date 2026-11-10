@@ -2,6 +2,11 @@
 
 Changes Claude made to shell and terminal config, newest first. Each entry lists what changed, where the backup is, and how to undo it. Entries before the move to this repo refer to the files' old locations.
 
+## 2026-11-10 - Karabiner: Delete and Return keys back on
+
+- `karabiner-ts/index.ts`: removed the `Disable the Delete and Return keys` rule, so the physical keys work again. Tapping Right Cmd (Backspace) and Left Cmd (Return) still work too.
+- Undo: revert the commit that adds this entry, then `bun run build`.
+
 ## 2026-10-31 - Karabiner: `:` and `~` swap on the symbol layer
 
 - `karabiner-ts/index.ts`: Right Cmd + `b` types `:` and Right Cmd + `v` types `~`. Right Cmd + `'` still types `:` too.

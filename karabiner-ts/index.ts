@@ -95,13 +95,6 @@ writeToProfile(process.argv.includes('--dry-run') ? '--dry-run' : 'Default profi
       .parameters({ 'basic.to_if_alone_timeout_milliseconds': 250 }),
   ]),
 
-  // Training wheels: the physical Delete and Return keys do nothing, so the thumbs take
-  // over. Delete this rule once the habit sticks (Esc got the same treatment for Caps).
-  rule('Disable the Delete and Return keys').manipulators([
-    map('delete_or_backspace', null, 'any').toNone(),
-    map('return_or_enter', null, 'any').toNone(),
-  ]),
-
   // Karabiner lifts the mandatory Right Cmd while it sends each symbol.
   rule('Symbol layer (Right Cmd + key)').manipulators([
     ...Object.entries(symbols).map(([from, [key, shifted]]) =>
